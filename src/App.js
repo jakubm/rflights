@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -7,7 +6,7 @@ class App extends Component {
     super(props);
     this.state = {
       flights: [
-        {}
+        {id: ""}
       ]
     };
   }
@@ -32,16 +31,12 @@ class App extends Component {
 }
 
 class Flights extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>
         <ul>
-          {this.props.flights.map(item => (
-            <FlightHeader flight={item}/>
+          {this.props.flights.map(flight => (
+            <FlightHeader key={flight.id} flight={flight}/>
         ))}
       </ul>
     </div>
@@ -50,10 +45,6 @@ class Flights extends Component {
 }
 
 class FlightHeader extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>
