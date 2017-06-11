@@ -33,6 +33,7 @@ class Flights extends Component {
   render() {
     return (
       <div>
+        <h3>{this.props.flights.length} flights</h3>
         <ul>
           {this.props.flights.map(flight => (
             <FlightHeader key={flight.id} flight={flight}/>
