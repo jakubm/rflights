@@ -25,13 +25,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          <Flights flights={this.state.flights}/>
-        </p>
+        <Flights flights={this.state.flights}/>
       </div>
     );
   }
@@ -45,11 +39,12 @@ class Flights extends Component {
   render() {
     return (
       <div>
-        <pre>
-          First: {this.props.flights[0].city}
-          Last: {this.props.flights[this.props.flights.length - 1].city}
-        </pre>
-      </div>
+        <ul>
+          {this.props.flights.map(item => (
+            <FlightHeader flight={item}/>
+        ))}
+      </ul>
+    </div>
     );
   }
 }
@@ -57,6 +52,15 @@ class Flights extends Component {
 class FlightHeader extends Component {
   constructor(props) {
     super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        {this.props.flight.flight_number} {this.props.flight.city} ({this.props.flight.direction})
+    </div>
+
+    );
   }
 
 }
