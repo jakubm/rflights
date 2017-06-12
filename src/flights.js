@@ -245,7 +245,8 @@ class Flights extends React.Component {
             filterGate: '',
             filterDirection: '',
             filterStatus: '',
-            flights: this.getData().flights,
+            flights: [],
+            loading: true
         };
 
         this.handleUserInput = this.handleUserInput.bind(this);
@@ -265,20 +266,23 @@ class Flights extends React.Component {
     }
 
     getData() {
-        const request = new XMLHttpRequest();
-        const url = 'https://jakubm.com/home/index.json';
-        request.open('GET', url, false);  // `false` makes the request synchronous
-        request.send(null);
+      this.setState({ loading: true });
+      fetch('https://jakubm.com/home/index.json')
+        .then(res => res.json())
+        .then(flights => {
+          this.setState({
+            flights: flights.flights,
+            loading: false
+          })
+        });
+    }
 
-        if (request.status === 200) {
-            return JSON.parse(request.responseText);
-        }
+    componentDidMount() {
+      this.getData();
     }
 
     handleRefresh() {
-        this.setState({
-            flights: this.getData().flights,
-        });
+      this.getData();
     }
 
     render() {
@@ -295,6 +299,12 @@ class Flights extends React.Component {
                   onUserInput={this.handleUserInput}
                   onRefresh={this.handleRefresh}
               />
+              <div>
+                {this.state.loading &&
+                  <div>Loading...</div>
+                }
+                {!this.state.loading &&
+
               <FlightsTable
                   flights={this.state.flights}
                   filterCity={this.state.filterCity}
@@ -305,7 +315,8 @@ class Flights extends React.Component {
                   filterDirection={this.state.filterDirection}
                   filterStatus={this.state.filterStatus}
               />
-            </div>
+            }</div>
+          </div>
         );
     }
 }
