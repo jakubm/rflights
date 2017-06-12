@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import Flights from './flights'
 import './App.css';
 
 class App extends Component {
@@ -28,13 +29,11 @@ class App extends Component {
         <div className="row">
           <div className="col-md-3">
             <div className="flights">
-              <Flights flights={this.state.flights}/>
+              <FlightsList flights={this.state.flights}/>
             </div>
           </div>
           <div className="col-md-9">
-            <Route exact={true} path="/" render={ () => (
-              <h3>Flight Detail</h3>
-            )}/>
+            <Route exact={true} path="/" component={Flights}/>
             <Route path="/f/:flightId" component={Flight}/>
           </div>
         </div>
@@ -44,7 +43,7 @@ class App extends Component {
   }
 }
 
-class Flights extends Component {
+class FlightsList extends Component {
   render() {
     return (
       <div>
