@@ -26,12 +26,12 @@ class App extends Component {
       <Router>
       <div className="App container-fluid" >
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-3">
             <div className="flights">
               <Flights flights={this.state.flights}/>
             </div>
           </div>
-          <div className="col-md-8">
+          <div className="col-md-9">
             <Route exact={true} path="/" render={ () => (
               <h3>Flight Detail</h3>
             )}/>
@@ -160,6 +160,38 @@ class Flight extends Component {
                 ))}
                 </tbody>
               </table>
+
+              {flight.similar_flights.length > 0 &&
+              <div><h4>Similar Flights</h4>
+              <table className='table table-striped'>
+                <thead>
+                <tr>
+                  <th>Dir.</th>
+                  <th>Flight</th>
+                  <th>Scheduled</th>
+                  <th>City</th>
+                  <th>Airline</th>
+                  <th>T.</th>
+                  <th>Gate</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {flight.similar_flights.map(f => (
+                  <tr key={f.id}>
+                    <td>{f.direction}</td>
+                    <td><Link to={`/f/${f.id}`}>{this.standardizeFlightNumber(f.flight_number)}</Link></td>
+                    <td>{this.formatDate(f.scheduled)}</td>
+                    <td>{f.city}</td>
+                    <td>{f.airline}</td>
+                    <td>{this.shortenTerminal(f.terminal)}</td>
+                    <td>{f.gate}</td>
+                    <td>{f.last_status}</td>
+                  </tr>
+              ))}
+              </tbody>
+            </table></div>}
+
               <h4>Last Flights</h4>
               <table className='table table-striped'>
                 <thead>
@@ -183,7 +215,6 @@ class Flight extends Component {
                     <td>{f.last_status}</td>
                   </tr>
               ))}
-
               </tbody>
             </table>
           </div>
