@@ -175,7 +175,7 @@ class Flight extends Component {
               <tbody>
                 {flight.last_flights.map(f => (
                   <tr key={f.id}>
-                    <td>{this.standardizeFlightNumber(f.flight_number)}</td>
+                    <td><Link to={`/f/${f.id}`}>{this.standardizeFlightNumber(f.flight_number)}</Link></td>
                     <td>{this.formatDate(f.scheduled)}</td>
                     <td>{f.city}</td>
                     <td>{this.shortenTerminal(f.terminal)}</td>
