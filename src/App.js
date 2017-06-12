@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import './App.css';
 
 class App extends Component {
@@ -22,16 +23,21 @@ class App extends Component {
 
   render() {
     return (
+      <Router>
       <div className="App container-fluid" >
         <div className="row">
           <div className="col-md-4">
             <Flights flights={this.state.flights}/>
           </div>
           <div className="col-md-8">
-            <Flight/>
+            <Route exact={true} path="/" render={ () => (
+              <h3>Flight Detail</h3>
+            )}/>
+            <Route path="/f/:flightId" component={Flight}/>
           </div>
         </div>
       </div>
+    </Router>
     );
   }
 }
@@ -60,7 +66,9 @@ class FlightHeader extends Component {
   render() {
     return (
       <div>
+        <Link to={`/f/${this.props.flight.id}`}>
         {this.props.flight.flight_number} {this.props.flight.city} ({this.props.flight.direction})
+      </Link>
     </div>
 
     );
@@ -69,12 +77,45 @@ class FlightHeader extends Component {
 }
 
 class Flight extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      flight: [],
+      loading: true
+    };
+  }
+
+  componentDidMount() {
+    this.componentWillReceiveProps();
+  }
+
+  componentWillReceiveProps() {
+    this.setState({ loading: true });
+    fetch('https://jakubm.com/flights/' + this.props.match.params.flightId + '.json')
+      .then(res => res.json())
+      .then(flight => {
+        this.setState({
+          flight: flight,
+          loading: false
+        })
+      });
+  }
+
   render() {
     return (
       <div>
-        {this.props.flight &&
-          <h2>Content</h2>
-        }
+        <div>
+          {this.state.loading &&
+            <div>Loading...</div>
+          }
+          {!this.state.loading &&
+            <div>
+            <div>{this.props.match.params.flightId}</div>
+            <div>{this.state.flight.flight_events.length}</div>
+            <Link to="/">Home</Link>
+          </div>
+          }
+        </div>
       </div>
     );
   }
