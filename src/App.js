@@ -100,8 +100,28 @@ class Flight extends Component {
         })
       });
   }
+  formatDate(d) {
+    return d.substring(8,10) + '.' + d.substring(5,7) + '. ' + d.substring(11, 16);
+  }
+
+  shortenTerminal(t) {
+    if (t.indexOf(" ") !== -1) {
+        return t.split(" ")[1];
+    } else {
+        return t;
+    }
+  }
+
+  standardizeFlightNumber(f) {
+    const items = f.split(" ");
+    if (items.length < 2)
+        return f;
+    else
+        return items[0] + " " + parseInt(items[1], 10);
+  }
 
   render() {
+    const flight = this.state.flight;
     return (
       <div>
         <div>
@@ -110,11 +130,63 @@ class Flight extends Component {
           }
           {!this.state.loading &&
             <div>
-              <div>ID: {this.state.flight.id}</div>
-              <div>ID (url): {this.props.match.params.flightId}</div>
-              <div>Flight: {this.state.flight.flight_number} {this.state.flight.city}</div>
-              <div>Status: {this.state.flight.last_status}</div>
-            </div>
+              <h3>{this.standardizeFlightNumber(flight.flight_number)} - {flight.city} ({flight.direction})
+              {flight.direction ==='d' &&
+                <span> {flight.gate}</span>
+                }
+              </h3>
+              <h4>{flight.airline}</h4>
+              <table className='table table-striped'>
+                <thead>
+                  <tr>
+                    <th>Scheduled</th>
+                    <th>City</th>
+                    <th>T.</th>
+                    <th>Gate</th>
+                    <th>Status</th>
+                    <th>Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {flight.flight_events.map(event => (
+                    <tr key={event.id}>
+                      <td>{this.formatDate(event.scheduled)}</td>
+                      <td>{event.city}</td>
+                      <td>{this.shortenTerminal(event.terminal)}</td>
+                      <td>{event.gate}</td>
+                      <td>{event.status}</td>
+                      <td>{this.formatDate(event.ts)}</td>
+                    </tr>
+                ))}
+                </tbody>
+              </table>
+              <h4>Last Flights</h4>
+              <table className='table table-striped'>
+                <thead>
+                <tr>
+                  <th>Flight</th>
+                  <th>Scheduled</th>
+                  <th>City</th>
+                  <th>T.</th>
+                  <th>Gate</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {flight.last_flights.map(f => (
+                  <tr key={f.id}>
+                    <td>{this.standardizeFlightNumber(f.flight_number)}</td>
+                    <td>{this.formatDate(f.scheduled)}</td>
+                    <td>{f.city}</td>
+                    <td>{this.shortenTerminal(f.terminal)}</td>
+                    <td>{f.gate}</td>
+                    <td>{f.last_status}</td>
+                  </tr>
+              ))}
+
+              </tbody>
+            </table>
+          </div>
           }
         </div>
       </div>
