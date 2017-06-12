@@ -27,7 +27,9 @@ class App extends Component {
       <div className="App container-fluid" >
         <div className="row">
           <div className="col-md-4">
-            <Flights flights={this.state.flights}/>
+            <div className="flights">
+              <Flights flights={this.state.flights}/>
+            </div>
           </div>
           <div className="col-md-8">
             <Route exact={true} path="/" render={ () => (
@@ -46,9 +48,7 @@ class Flights extends Component {
   render() {
     return (
       <div>
-        {this.props.flights.length > 0 &&
-          <h3>{this.props.flights.length} flights</h3>
-        }
+        <h3><Link to="/">Home</Link></h3>
         {this.props.flights.length === 0 &&
           <h3>Loading...</h3>
         }
@@ -112,7 +112,6 @@ class Flight extends Component {
             <div>
             <div>{this.props.match.params.flightId}</div>
             <div>{this.state.flight.flight_events.length}</div>
-            <Link to="/">Home</Link>
           </div>
           }
         </div>
