@@ -22,8 +22,15 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Flights flights={this.state.flights}/>
+      <div className="App container-fluid" >
+        <div className="row">
+          <div className="col-md-4">
+            <Flights flights={this.state.flights}/>
+          </div>
+          <div className="col-md-8">
+            <Flight/>
+          </div>
+        </div>
       </div>
     );
   }
@@ -33,7 +40,12 @@ class Flights extends Component {
   render() {
     return (
       <div>
-        <h3>{this.props.flights.length} flights</h3>
+        {this.props.flights.length > 0 &&
+          <h3>{this.props.flights.length} flights</h3>
+        }
+        {this.props.flights.length === 0 &&
+          <h3>Loading...</h3>
+        }
         <ul>
           {this.props.flights.map(flight => (
             <FlightHeader key={flight.id} flight={flight}/>
@@ -54,6 +66,18 @@ class FlightHeader extends Component {
     );
   }
 
+}
+
+class Flight extends Component {
+  render() {
+    return (
+      <div>
+        {this.props.flight &&
+          <h2>Content</h2>
+        }
+      </div>
+    );
+  }
 }
 
 export default App;
