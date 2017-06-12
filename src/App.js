@@ -86,12 +86,12 @@ class Flight extends Component {
   }
 
   componentDidMount() {
-    this.componentWillReceiveProps();
+    this.componentWillReceiveProps(this.props);
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     this.setState({ loading: true });
-    fetch('https://jakubm.com/flights/' + this.props.match.params.flightId + '.json')
+    fetch('https://jakubm.com/flights/' + nextProps.match.params.flightId + '.json')
       .then(res => res.json())
       .then(flight => {
         this.setState({
@@ -110,9 +110,11 @@ class Flight extends Component {
           }
           {!this.state.loading &&
             <div>
-            <div>{this.props.match.params.flightId}</div>
-            <div>{this.state.flight.flight_events.length}</div>
-          </div>
+              <div>ID: {this.state.flight.id}</div>
+              <div>ID (url): {this.props.match.params.flightId}</div>
+              <div>Flight: {this.state.flight.flight_number} {this.state.flight.city}</div>
+              <div>Status: {this.state.flight.last_status}</div>
+            </div>
           }
         </div>
       </div>
