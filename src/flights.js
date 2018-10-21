@@ -91,7 +91,7 @@ class SearchBar extends React.Component {
                         <option value="f">Finished</option>
                         <option value="u">Updated</option>
                     </select>&nbsp;
-                    <a href="" onClick={this.handleRefresh}>{this.state.title}</a>
+                    <a href="#" onClick={this.handleRefresh}>{this.state.title}</a>
                   </div>
             </form>
           </div>
