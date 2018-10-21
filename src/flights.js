@@ -267,7 +267,7 @@ class Flights extends React.Component {
 
     getData() {
       this.setState({ loading: true });
-      fetch('https://jakubm.com/home/index.json')
+      fetch('http://prg-aero.com/home/index.json')
         .then(res => res.json())
         .then(flights => {
           this.setState({

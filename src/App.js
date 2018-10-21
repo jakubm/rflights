@@ -13,7 +13,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('https://jakubm.com/home/index.json')
+    fetch('http://prg-aero.com/home/index.json')
       .then(res => res.json())
       .then(flights => {
         this.setState({
@@ -90,7 +90,7 @@ class Flight extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({ loading: true });
-    fetch('https://jakubm.com/flights/' + nextProps.match.params.flightId + '.json')
+    fetch('http://prg-aero.com/flights/' + nextProps.match.params.flightId + '.json')
       .then(res => res.json())
       .then(flight => {
         this.setState({
