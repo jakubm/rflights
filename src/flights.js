@@ -129,6 +129,7 @@ class FlightRow extends React.Component {
                 <td>{this.props.flight.city}</td>
                 <td>{this.props.flight.airline}</td>
                 <td>{this.shortenTerminal(this.props.flight.terminal)}</td>
+                <td>{this.props.flight.plane}</td>
                 <td>{this.props.flight.gate}</td>
                 <td>{this.props.flight.last_status}</td>
             </tr>
@@ -222,6 +223,7 @@ class FlightsTable extends React.Component {
                      <th>City</th>
                      <th>Airline</th>
                      <th>T.</th>
+                     <th>Plane</th>
                      <th>Gate</th>
                      <th>Status</th>
                   </tr>

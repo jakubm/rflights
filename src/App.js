@@ -141,6 +141,7 @@ class Flight extends Component {
                     <th>Scheduled</th>
                     <th>City</th>
                     <th>T.</th>
+                    <th>Plane</th>
                     <th>Gate</th>
                     <th>Status</th>
                     <th>Timestamp</th>
@@ -152,6 +153,7 @@ class Flight extends Component {
                       <td>{this.formatDate(event.scheduled)}</td>
                       <td>{event.city}</td>
                       <td>{this.shortenTerminal(event.terminal)}</td>
+                      <td>{event.plane}</td>
                       <td>{event.gate}</td>
                       <td>{event.status}</td>
                       <td>{this.formatDate(event.ts)}</td>
@@ -171,6 +173,7 @@ class Flight extends Component {
                   <th>City</th>
                   <th>Airline</th>
                   <th>T.</th>
+                  <th>Plane</th>
                   <th>Gate</th>
                   <th>Status</th>
                 </tr>
@@ -184,6 +187,7 @@ class Flight extends Component {
                     <td>{f.city}</td>
                     <td>{f.airline}</td>
                     <td>{this.shortenTerminal(f.terminal)}</td>
+                    <td>{f.plane}</td>
                     <td>{f.gate}</td>
                     <td>{f.last_status}</td>
                   </tr>
@@ -199,6 +203,7 @@ class Flight extends Component {
                   <th>Scheduled</th>
                   <th>City</th>
                   <th>T.</th>
+                  <th>Plane</th>
                   <th>Gate</th>
                   <th>Status</th>
                 </tr>
@@ -210,6 +215,7 @@ class Flight extends Component {
                     <td>{this.formatDate(f.scheduled)}</td>
                     <td>{f.city}</td>
                     <td>{this.shortenTerminal(f.terminal)}</td>
+                    <td>{f.plane}</td>
                     <td>{f.gate}</td>
                     <td>{f.last_status}</td>
                   </tr>
